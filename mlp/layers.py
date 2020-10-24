@@ -663,9 +663,9 @@ class DropoutLayer(StochasticLayer):
             outputs: Array of layer outputs of shape (batch_size, output_dim).
         """
         if self.share_across_batch == True:
-             self.bool_mask = self.rng.uniform(size=(inputs.shape[1:])) < self.incl_prob
+             self.bool_mask = self.rng.uniform(size=inputs.shape[1:]) < self.incl_prob
         else:
-             self.bool_mask = self.rng.uniform(size=(inputs.shape())) < self.incl_prob
+             self.bool_mask = self.rng.uniform(size=inputs.shape) < self.incl_prob
         
         if stochastic == False:
             return inputs
@@ -673,7 +673,6 @@ class DropoutLayer(StochasticLayer):
             return (inputs * self.bool_mask) / self.incl_prob
         
         
-
     def bprop(self, inputs, outputs, grads_wrt_outputs):
         """Back propagates gradients through a layer.
 
