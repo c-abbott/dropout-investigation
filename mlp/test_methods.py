@@ -16,6 +16,7 @@ def test_dropout_layer():
     correct_outputs = np.load(os.path.join(os.environ['MLP_DATA_DIR'], 'regularization_debug_pack.npy'), allow_pickle=True).item()
 
     rng = np.random.RandomState(92019)
+    
     layer = DropoutLayer(rng=rng)
 
     out = layer.fprop(x)
@@ -79,11 +80,3 @@ def test_L2_Penalty():
     grad_test = np.allclose(correct_outputs['L2Penalty_grad_correct'], grads)
 
     return __call__test, out, correct_outputs['L2Penalty___call__correct'], grad_test, grads, correct_outputs['L2Penalty_grad_correct']
-
-if __name__ == "__main__":
-    print(test_dropout_layer()[0])
-    print(test_dropout_layer()[3])
-    print(test_L1_Penalty()[0])
-    print(test_L1_Penalty()[3])
-    print(test_L2_Penalty()[0])
-    print(test_L2_Penalty()[3])

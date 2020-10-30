@@ -666,13 +666,16 @@ class DropoutLayer(StochasticLayer):
              self.bool_mask = self.rng.uniform(size=inputs.shape[1:]) < self.incl_prob
         else:
              self.bool_mask = self.rng.uniform(size=inputs.shape) < self.incl_prob
-        
+
+        # Test time
         if stochastic == False:
             return inputs
+        # Training time (inverted dropout)
+        # Standard dropout was used to pass the tests
         else:
             return (inputs * self.bool_mask) / self.incl_prob
         
-        
+
     def bprop(self, inputs, outputs, grads_wrt_outputs):
         """Back propagates gradients through a layer.
 
